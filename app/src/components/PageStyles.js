@@ -1,17 +1,27 @@
+// Color scheme: https://coolors.co/ffffff-ff7f11-353535-ff1b1c-202020
+const paperColor = '#353535';
+const colorOrange = '#FF7F11';
+const colorRed = '#FF1B1C';
+const paddingSize = '8px';
+
 const rightMenuStyle = {
   root: {
     display: 'flex',
   },
   paper: {
-    marginBottom: '8px',
-    marginRight: '8px',
-    marginTop: '8px',
+    marginBottom: paddingSize,
+    marginRight: paddingSize,
+    marginTop: paddingSize,
     textAlign: 'center',
-    color: '#4fbbd6',
+    color: colorOrange,
     fontSize: '40px',
-    backgroundColor: '#242730',
+    backgroundColor: paperColor,
     minHeight: '32vh',
   },
 };
 
 export { rightMenuStyle };
+export { paperColor };
+export { paddingSize };
+export { colorOrange };
+export { colorRed };

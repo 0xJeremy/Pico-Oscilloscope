@@ -6,11 +6,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { paperColor } from './PageStyles';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
     color: '#4fbbd6',
-    backgroundColor: '#242730',
+    backgroundColor: paperColor,
   },
   blue: {
     color: '#4fbbd6'
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%'
   },
   box: {
-    backgroundColor: '#242730',
+    backgroundColor: paperColor,
     color: '#4fbbd6',
     borderRadius: '0px'
   },

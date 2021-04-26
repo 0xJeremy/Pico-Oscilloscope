@@ -1,24 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { paperColor, paddingSize, colorOrange } from './PageStyles';
 
 const useStyles = makeStyles({
   paper: {
-    marginRight: '8px',
+    marginRight: paddingSize,
     textAlign: 'center',
-    color: '#4fbbd6',
+    color: colorOrange,
     fontSize: '18px',
-    backgroundColor: '#242730',
+    backgroundColor: paperColor,
     minHeight: '32vh'
   },
 });
 
-export default function TogglePanel(props) {
+export default function BottomMiddleMenu(props) {
   const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
-
     </Paper>
   );
 }
