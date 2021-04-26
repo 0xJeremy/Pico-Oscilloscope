@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Plot from './Plot';
+import LivePlot from './LivePlot';
 import BottomMiddleMenu from './BottomMiddleMenu';
 import TopMenu from './TopMenu';
 import MiddleMenu from './MiddleMenu';
@@ -15,7 +15,7 @@ export default function Page() {
       <Grid container spacing={0}>
 
         <Grid item xs={9}>
-          <Plot />
+          <LivePlot />
 
           <Grid container spacing={1}>
             <Grid item xs={3}>

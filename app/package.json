@@ -6,9 +6,11 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.49",
     "express": "4.17.1",
+    "plotly.js": "^1.58.4",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-map-gl": "5.2.3",
+    "react-plotly.js": "^2.5.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
