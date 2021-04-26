@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     color: '#4fbbd6',
     fontSize: '18px',
     backgroundColor: '#242730',
-    minHeight: '33vh'
+    minHeight: '32vh'
   },
 });
 

@@ -4,13 +4,12 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: '#4fbbd6',
-    backgroundColor: '#242730',
-    borderColor: '#4fbbd6',
-    height: '3vh',
-    minWidth: '4vw',
-    width: '4vw',
-    top: '0.8vh'
+    minHeight: '64.75vh',
+    maxWidth: '100%',
+    position: 'relative',
+    marginBottom: '8px',
+    marginLeft: '8px',
+    marginTop: '8px',
   },
   paper: {
     marginBottom: '8px',
@@ -20,17 +19,19 @@ const useStyles = makeStyles(theme => ({
     color: '#4fbbd6',
     fontSize: '40px',
     backgroundColor: '#242730',
-    minHeight: '32vh',
-    padding: '0 0 0 0'
-  },
+    minHeight: '64.75vh',
+  }
 }));
 
-export default function MassClassChart(props) {
+export default function Plot(props) {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.paper}>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
 
-    </Paper>
+      </Paper>
+    </div>
   )
 };
+

@@ -43,15 +43,14 @@ export default function InfoBox(props) {
   return (
     <div>
       <Dialog className={classes.dialog} classes={{paper: classes.paper}} open={open} onClose={handleClose}>
-        <DialogTitle className={classes.box} >Meteorite Data Visualizer</DialogTitle>
+        <DialogTitle className={classes.box} >Raspberry Pi[co] [OSS]illoscope</DialogTitle>
         <DialogContent className={classes.box} >
           <DialogContentText className={classes.box}>
-            Welcome to the meteorite data visualizer. This page shows all the meteorite data ever collected by NASA.
-            You can view the original dataset <a className={classes.link} href="https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh" target="_blank" rel="noopener noreferrer">here</a>.
+            Welcome to the Raspberry Pi[co] [OSS]illoscope: a Raspberry Pi and Raspberry Pi Pico open-source oscilloscope.
             <br />
             Please enjoy.
             <br /><br />
-            View the source code <a className={classes.link} href="https://github.com/0bLondon/VizFinal" target="_blank" rel="noopener noreferrer">here</a>.
+            View the source code <a className={classes.link} href="https://github.com/0xJeremy/p6" target="_blank" rel="noopener noreferrer">here</a>.
             <br /><br />
             Made with ❤️ by Jeremy Kanovsky & Ben London
           </DialogContentText>
