@@ -1,6 +1,8 @@
 html {
 	background: #202020;
 	overflow: hidden;
+	font-family: Raleway, sans-serif;
+	font-weight: 400;
 }
 
 body {

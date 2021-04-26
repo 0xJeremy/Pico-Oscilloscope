@@ -10,7 +10,7 @@ export default function MiddleMenu(props) {
 
   return (
     <Paper className={classes.paper}>
-
+      Channel 2
     </Paper>
   )
 

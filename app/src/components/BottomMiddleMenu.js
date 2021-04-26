@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     marginRight: paddingSize,
     textAlign: 'center',
     color: colorOrange,
-    fontSize: '18px',
+    fontSize: '40px',
     backgroundColor: paperColor,
     minHeight: '32vh'
   },
@@ -19,6 +19,7 @@ export default function BottomMiddleMenu(props) {
 
   return (
     <Paper className={classes.paper}>
+      What goes here???
     </Paper>
   );
 }

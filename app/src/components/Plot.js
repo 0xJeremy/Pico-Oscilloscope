@@ -30,7 +30,7 @@ export default function Plot(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        This is some text!
+        Plot
       </Paper>
     </div>
   )

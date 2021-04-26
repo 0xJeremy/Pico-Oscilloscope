@@ -2,16 +2,14 @@
   "name": "p6",
   "version": "0.0.1",
   "dependencies": {
-    "@material-ui/core": "^4.9.10",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.49",
-    "d3": "^5.15.1",
-    "deck.gl": "^8.1.1",
-    "express": "^4.17.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-map-gl": "^5.2.3",
-    "react-scripts": "^3.4.1"
+    "@material-ui/core": "4.9.10",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "4.0.0-alpha.49",
+    "express": "4.17.1",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-map-gl": "5.2.3",
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "node server.js",

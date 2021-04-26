@@ -1,14 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { paperColor, paddingSize } from './PageStyles';
+import { paperColor, paddingSize, colorOrange } from './PageStyles';
 
 const useStyles = makeStyles({
   paper: {
     marginLeft: paddingSize,
     textAlign: 'center',
-    color: '#4fbbd6',
-    fontSize: '18px',
+    color: colorOrange,
+    fontSize: '40px',
     backgroundColor: paperColor,
     minHeight: '32vh'
   },
@@ -19,7 +19,7 @@ export default function BottomLeftMenu(props) {
 
   return (
     <Paper className={classes.paper}>
-
+      Config Menu
     </Paper>
   );
 }
