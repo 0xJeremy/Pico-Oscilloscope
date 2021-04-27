@@ -1,38 +1,42 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import ToolBar from './ToolBar';
 import LivePlot from './LivePlot';
-import BottomMiddleMenu from './BottomMiddleMenu';
-import TopMenu from './TopMenu';
-import MiddleMenu from './MiddleMenu';
-import BottomMenu from './BottomMenu';
-import BottomLeftMenu from './BottomLeftMenu';
+import Channel from './Channel';
 import InfoBox from './InfoBox';
+import ConfigMenu from './ConfigMenu';
+
+const useStyles = makeStyles(theme => ({
+  grid: {
+    marginTop: '6.4vh',
+  },
+}));
 
 export default function Page() {
+  const classes = useStyles();
 
   return (
     <div>
-      <Grid container spacing={0}>
+      <AppBar >
+        <ToolBar />
+      </AppBar>
+
+      <Grid container spacing={0} className={classes.grid}>
 
         <Grid item xs={9}>
           <LivePlot />
 
-          <Grid container spacing={1}>
-            <Grid item xs={3}>
-              <BottomLeftMenu />
-            </Grid>
-
-            <Grid item xs={9}>
-              <BottomMiddleMenu  />
-            </Grid>
-          </Grid>
-
         </Grid>
 
         <Grid item xs={3}>
-          <TopMenu />
-          <MiddleMenu />
-          <BottomMenu />
+          <Channel channelNumber="1" />
+          <Channel channelNumber="2" />
+          <Channel channelNumber="3" />
+          <Channel channelNumber="4" />
+          <ConfigMenu />
         </Grid>
 
       </Grid>

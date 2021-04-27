@@ -14,9 +14,18 @@ const rightMenuStyle = {
     marginTop: paddingSize,
     textAlign: 'center',
     color: colorOrange,
-    fontSize: '40px',
     backgroundColor: paperColor,
-    minHeight: '32vh',
+    minHeight: '15vh',
+  },
+  channelTitle: {
+  	fontSize: '24px',
+  	paddingBottom: '8px',
+  },
+  gridText: {
+  	display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '4vh',
   },
 };
 

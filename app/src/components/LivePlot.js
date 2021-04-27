@@ -4,9 +4,11 @@ import Paper from '@material-ui/core/Paper';
 import Plot from "react-plotly.js";
 import { paperColor, paddingSize, colorOrange } from './PageStyles';
 
+const plotHeight = '91vh';
+
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: '64.75vh',
+    minHeight: plotHeight,
     maxWidth: '100%',
     position: 'relative',
     marginBottom: paddingSize,
@@ -21,11 +23,11 @@ const useStyles = makeStyles(theme => ({
     color: colorOrange,
     fontSize: '40px',
     backgroundColor: paperColor,
-    minHeight: '64.75vh',
+    minHeight: plotHeight,
   },
   plot: {
-    minWidth: '100%',
-    minHeight: '100%',
+    width: '100%',
+    height: plotHeight,
   }
 }));
 
@@ -51,7 +53,6 @@ export default function LivePlot(props) {
             layout={{
               plot_bgcolor: paperColor,
               paper_bgcolor: paperColor,
-              height: 600,
               font: {
                 family: "Raleway, sans-serif",
                 size: 20,
