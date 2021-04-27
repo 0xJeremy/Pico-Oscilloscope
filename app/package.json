@@ -16,7 +16,8 @@
   "scripts": {
     "start": "node server.js",
     "local": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "lint": "eslint src/**/*.js"
   },
   "license": "MIT",
   "eslintConfig": {
@@ -33,5 +34,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "7.23.2",
+    "prettier": "2.2.1"
   }
 }

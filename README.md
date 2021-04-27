@@ -9,3 +9,7 @@ Code in the `src` folder lives on the Raspberry Pi Pico and streams analog data 
 ### Pico Serial Commands
 
 [TODO: This section!]
+
+### Developing
+
+To develop on the webpage, use the command `npm run-script local` in the `app/` folder (must have done an `npm install` first). This will open the webpage in your default browser.

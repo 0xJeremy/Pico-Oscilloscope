@@ -1,36 +1,36 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { paperColor } from './PageStyles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { paperColor } from "./PageStyles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   dialog: {
-    color: '#4fbbd6',
+    color: "#4fbbd6",
     backgroundColor: paperColor,
   },
   blue: {
-    color: '#4fbbd6'
+    color: "#4fbbd6",
   },
   outline_blue: {
-    borderColor: '#4fbbd6',
-    height: '100%'
+    borderColor: "#4fbbd6",
+    height: "100%",
   },
   box: {
     backgroundColor: paperColor,
-    color: '#4fbbd6',
-    borderRadius: '0px'
+    color: "#4fbbd6",
+    borderRadius: "0px",
   },
   paper: {
-    borderRadius: '0px'
+    borderRadius: "0px",
   },
   link: {
-    color: 'white'
-  }
+    color: "white",
+  },
 }));
 
 export default function InfoBox(props) {
@@ -43,21 +43,45 @@ export default function InfoBox(props) {
 
   return (
     <div>
-      <Dialog className={classes.dialog} classes={{paper: classes.paper}} open={open} onClose={handleClose}>
-        <DialogTitle className={classes.box} >Raspberry Pi[co] [OSS]illoscope</DialogTitle>
-        <DialogContent className={classes.box} >
+      <Dialog
+        className={classes.dialog}
+        classes={{ paper: classes.paper }}
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle className={classes.box}>
+          Raspberry Pi[co] [OSS]illoscope
+        </DialogTitle>
+        <DialogContent className={classes.box}>
           <DialogContentText className={classes.box}>
-            Welcome to the Raspberry Pi[co] [OSS]illoscope: a Raspberry Pi and Raspberry Pi Pico open-source oscilloscope.
+            Welcome to the Raspberry Pi[co] [OSS]illoscope: a Raspberry Pi and
+            Raspberry Pi Pico open-source oscilloscope.
             <br />
             Please enjoy.
-            <br /><br />
-            View the source code <a className={classes.link} href="https://github.com/0xJeremy/p6" target="_blank" rel="noopener noreferrer">here</a>.
-            <br /><br />
+            <br />
+            <br />
+            View the source code{" "}
+            <a
+              className={classes.link}
+              href="https://github.com/0xJeremy/p6"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              here
+            </a>
+            .
+            <br />
+            <br />
             Made with ❤️ by Jeremy Kanovsky & Ben London
           </DialogContentText>
         </DialogContent>
-        <DialogActions className={classes.box} >
-          <Button className={classes.blue} classes={{outlined: classes.outline_blue}} variant="outlined" onClick={handleClose} >
+        <DialogActions className={classes.box}>
+          <Button
+            className={classes.blue}
+            classes={{ outlined: classes.outline_blue }}
+            variant="outlined"
+            onClick={handleClose}
+          >
             Done!
           </Button>
         </DialogActions>
