@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridTitle: {
     border: "1px solid currentColor",
+    borderRadius: '4px',
   },
   topGrid: {
     marginLeft: "8px",

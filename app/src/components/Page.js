@@ -8,6 +8,7 @@ import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
 import { colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
+import { socket } from './Socket';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -17,6 +18,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Page() {
   const classes = useStyles();
+  const [data, setData] = React.useState({
+    1: [],
+    2: [],
+    3: [],
+    4: []
+  });
+
+  socket.on('data', (data) => {
+    console.log("New socket data!", data);
+  });
 
   return (
     <div>
