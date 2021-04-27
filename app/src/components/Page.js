@@ -2,19 +2,12 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import ToolBar from "./ToolBar";
 import LivePlot from "./LivePlot";
 import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
-import {
-  colorOrange,
-  colorRed,
-  colorBlue,
-  colorGreen,
-  colorYellow,
-} from "./PageStyles";
+import { colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
 
 const useStyles = makeStyles((theme) => ({
   grid: {

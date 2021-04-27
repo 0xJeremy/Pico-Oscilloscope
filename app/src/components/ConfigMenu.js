@@ -1,11 +1,13 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Switch, { SwitchClassKey, SwitchProps } from "@material-ui/core/Switch";
+import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import PauseIcon from "@material-ui/icons/Pause";
 import { paddingSize, colorOrange, paperColor } from "./PageStyles";
 
 const StyledSwitch = withStyles({
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     color: colorOrange,
     border: "1px solid currentColor",
     backgroundColor: paperColor,
-    minHeight: "24.7vh",
+    minHeight: "31.5vh",
   },
   channelTitle: {
     fontSize: "24px",
@@ -80,11 +82,19 @@ const useStyles = makeStyles((theme) => ({
     height: "4vh",
   },
   input: {},
+  grid: {
+    marginTop: "8px",
+    marginBottom: "8px",
+  },
+  button: {
+    marginTop: "2vh",
+    // color: colorOrange,
+    backgroundColor: colorOrange,
+  },
 }));
 
 export default function ConfigMenu(props) {
   const classes = useStyles();
-  const channelNumber = props.channelNumber;
   const [state, setState] = React.useState({
     checkedA: false,
     checkedB: false,
@@ -97,7 +107,9 @@ export default function ConfigMenu(props) {
 
   return (
     <Paper className={classes.paper}>
-      <Typography className={classes.channelTitle}>Config Menu</Typography>
+      <Typography className={classes.channelTitle}>
+        Configuration Menu
+      </Typography>
 
       <Grid container className={classes.grid}>
         <Grid item xs={4}>
@@ -148,6 +160,17 @@ export default function ConfigMenu(props) {
           />
         </Grid>
       </Grid>
+
+      <Button
+        className={classes.button}
+        // classes={{ outlined: classes.outline }}
+        variant="contained"
+        color="primary"
+        size="large"
+        startIcon={<PauseIcon />}
+      >
+        Pause Collection
+      </Button>
     </Paper>
   );
 }

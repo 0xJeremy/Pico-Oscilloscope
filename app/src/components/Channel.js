@@ -1,14 +1,17 @@
 import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Switch, { SwitchClassKey, SwitchProps } from "@material-ui/core/Switch";
+import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Slider from "@material-ui/core/Slider";
-import { colorOrange, paddingSize, paperColor } from "./PageStyles";
+import { paddingSize, paperColor } from "./PageStyles";
 
 const StyledSwitch = withStyles({
+  root: {
+    marginTop: "-6px",
+  },
   switchBase: {
     color: (props) => props.channelColor,
     "&$checked": {
@@ -66,17 +69,28 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: (props) => props.channelColor,
     backgroundColor: paperColor,
-    minHeight: "12vh",
+    minHeight: "14vh",
     border: "1px solid currentColor",
   },
   channelTitle: {
     fontSize: "20px",
   },
-  gridText: {
+  bottomGridInputs: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     height: "4vh",
+    paddingTop: "2px",
+  },
+  topGridInputs: {
+    border: "1px solid transparent",
+  },
+  gridTitle: {
+    border: "1px solid currentColor",
+  },
+  topGrid: {
+    marginLeft: "8px",
+    marginTop: "8px",
   },
 }));
 
@@ -96,18 +110,23 @@ export default function Channel(props) {
 
   return (
     <Paper className={classes.paper}>
-      <Typography className={classes.channelTitle}>
-        ADC Channel {channelNumber}
-      </Typography>
-
-      <Grid container className={classes.grid}>
-        <Grid item xs={4}>
-          <Typography className={classes.gridText}>Channel Enabled</Typography>
-        </Grid>
+      <Grid container className={classes.topGrid}>
         <Grid item xs={2}>
+          <Typography className={classes.gridTitle}>
+            ADC {channelNumber}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Typography className={classes.topGridInputs}>
+            Channel Enabled
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
           <FormControlLabel
             control={
               <StyledSwitch
+                className={classes.topGridInputs}
                 channelColor={channelColor}
                 checked={state.checkedA}
                 onChange={handleChange}
@@ -116,13 +135,14 @@ export default function Channel(props) {
             }
           />
         </Grid>
-        <Grid item xs={4}>
-          <Typography className={classes.gridText}>Invert Axis</Typography>
+        <Grid item xs={3}>
+          <Typography className={classes.topGridInputs}>Invert Axis</Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <FormControlLabel
             control={
               <StyledSwitch
+                className={classes.topGridInputs}
                 channelColor={channelColor}
                 checked={state.checkedB}
                 onChange={handleChange}
@@ -135,10 +155,12 @@ export default function Channel(props) {
 
       <Grid container className={classes.grid}>
         <Grid item xs={4}>
-          <Typography className={classes.gridText}>
+          <Typography className={classes.bottomGridInputs}>
             Channel Frequency
           </Typography>
-          <Typography className={classes.gridText}>Channel Offset</Typography>
+          <Typography className={classes.bottomGridInputs}>
+            Channel Offset
+          </Typography>
         </Grid>
 
         <Grid item xs={6}>

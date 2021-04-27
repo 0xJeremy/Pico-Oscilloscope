@@ -60,7 +60,7 @@ export default function LivePlot(props) {
             },
             xaxis: {
               title: {
-                text: "Time (s)",
+                text: "Time",
               },
               zeroline: true,
               zerolinecolor: "#777777",
