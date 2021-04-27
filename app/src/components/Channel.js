@@ -10,12 +10,12 @@ import { colorOrange, paddingSize, paperColor } from "./PageStyles";
 
 const StyledSwitch = withStyles({
   switchBase: {
-    color: props => props.channelColor,
+    color: (props) => props.channelColor,
     "&$checked": {
-      color: props => props.channelColor,
+      color: (props) => props.channelColor,
     },
     "&$checked + $track": {
-      backgroundColor: props => props.channelColor,
+      backgroundColor: (props) => props.channelColor,
     },
   },
   checked: {},
@@ -24,7 +24,7 @@ const StyledSwitch = withStyles({
 
 const FrequencySlider = withStyles({
   root: {
-    color: props => props.channelColor,
+    color: (props) => props.channelColor,
     height: 8,
     marginTop: "5px",
     marginLeft: "8px",
@@ -64,10 +64,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: paddingSize,
     marginTop: paddingSize,
     textAlign: "center",
-    color: props => props.channelColor,
+    color: (props) => props.channelColor,
     backgroundColor: paperColor,
     minHeight: "12vh",
-    border: '1px solid currentColor',
+    border: "1px solid currentColor",
   },
   channelTitle: {
     fontSize: "20px",
@@ -138,9 +138,7 @@ export default function Channel(props) {
           <Typography className={classes.gridText}>
             Channel Frequency
           </Typography>
-          <Typography className={classes.gridText}>
-            Channel Offset
-          </Typography>
+          <Typography className={classes.gridText}>Channel Offset</Typography>
         </Grid>
 
         <Grid item xs={6}>

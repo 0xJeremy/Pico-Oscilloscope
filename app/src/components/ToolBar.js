@@ -58,7 +58,6 @@ function ToolBar(props) {
           Contribute
         </Button>
       </section>
-
     </Toolbar>
   );
 }

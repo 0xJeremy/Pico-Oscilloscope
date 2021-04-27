@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: paddingSize,
     textAlign: "center",
     color: colorOrange,
-    border: '1px solid currentColor',
+    border: "1px solid currentColor",
     backgroundColor: paperColor,
     minHeight: "24.7vh",
   },
@@ -79,8 +79,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     height: "4vh",
   },
-  input: {
-  },
+  input: {},
 }));
 
 export default function ConfigMenu(props) {
@@ -98,13 +97,13 @@ export default function ConfigMenu(props) {
 
   return (
     <Paper className={classes.paper}>
-      <Typography className={classes.channelTitle}>
-        Config Menu
-      </Typography>
+      <Typography className={classes.channelTitle}>Config Menu</Typography>
 
       <Grid container className={classes.grid}>
         <Grid item xs={4}>
-          <Typography className={classes.gridText}>Toggle All Channels</Typography>
+          <Typography className={classes.gridText}>
+            Toggle All Channels
+          </Typography>
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
@@ -149,5 +148,6 @@ export default function ConfigMenu(props) {
           />
         </Grid>
       </Grid>
-    </Paper>);
+    </Paper>
+  );
 }

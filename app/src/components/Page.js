@@ -8,7 +8,13 @@ import LivePlot from "./LivePlot";
 import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
-import { colorOrange, colorRed, colorBlue, colorGreen, colorYellow } from './PageStyles';
+import {
+  colorOrange,
+  colorRed,
+  colorBlue,
+  colorGreen,
+  colorYellow,
+} from "./PageStyles";
 
 const useStyles = makeStyles((theme) => ({
   grid: {

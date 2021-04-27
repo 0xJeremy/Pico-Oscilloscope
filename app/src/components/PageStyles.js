@@ -14,5 +14,5 @@ export {
   colorRed,
   colorBlue,
   colorGreen,
-  colorYellow
+  colorYellow,
 };
