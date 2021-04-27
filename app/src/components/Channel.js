@@ -160,7 +160,7 @@ export default function Channel(props) {
             Channel Frequency
           </Typography>
           <Typography className={classes.bottomGridInputs}>
-            Channel Offset
+            Channel Offset (mV)
           </Typography>
         </Grid>
 
