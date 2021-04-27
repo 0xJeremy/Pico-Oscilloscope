@@ -3,38 +3,16 @@ const paperColor = "#313131";
 const colorOrange = "#FF7F11";
 const colorRed = "#FF1B1C";
 const colorBlue = "#4fbbd6";
+const colorGreen = "#38A700";
+const colorYellow = "#F7CB15";
 const paddingSize = "8px";
 
-const rightMenuStyle = {
-  root: {
-    display: "flex",
-  },
-  paper: {
-    marginBottom: paddingSize,
-    marginRight: paddingSize,
-    marginTop: paddingSize,
-    textAlign: "center",
-    color: colorOrange,
-    backgroundColor: paperColor,
-    minHeight: "15vh",
-  },
-  channelTitle: {
-    fontSize: "24px",
-    paddingBottom: "8px",
-  },
-  gridText: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    height: "4vh",
-  },
-};
-
 export {
-  rightMenuStyle,
   paperColor,
   paddingSize,
   colorOrange,
   colorRed,
   colorBlue,
+  colorGreen,
+  colorYellow
 };

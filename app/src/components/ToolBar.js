@@ -15,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2.2em",
   },
   button: {
-    display: "flex",
-    alignItems: "center",
     marginLeft: "16px",
     color: colorBlue,
   },
@@ -38,7 +36,17 @@ function ToolBar(props) {
       <Typography className={classes.name}>
         Raspberry Pi[co] [OSS]illoscope
       </Typography>
+
       <section className={classes.rightToolbar}>
+        <Button
+          className={classes.button}
+          classes={{ outlined: classes.outline }}
+          variant="outlined"
+          color="primary"
+        >
+          About
+        </Button>
+
         <Button
           className={classes.button}
           classes={{ outlined: classes.outline }}
@@ -50,6 +58,7 @@ function ToolBar(props) {
           Contribute
         </Button>
       </section>
+
     </Toolbar>
   );
 }

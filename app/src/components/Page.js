@@ -8,6 +8,7 @@ import LivePlot from "./LivePlot";
 import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
+import { colorOrange, colorRed, colorBlue, colorGreen, colorYellow } from './PageStyles';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -30,10 +31,10 @@ export default function Page() {
         </Grid>
 
         <Grid item xs={3}>
-          <Channel channelNumber="1" />
-          <Channel channelNumber="2" />
-          <Channel channelNumber="3" />
-          <Channel channelNumber="4" />
+          <Channel channelNumber="1" channelColor={colorRed} />
+          <Channel channelNumber="2" channelColor={colorBlue} />
+          <Channel channelNumber="3" channelColor={colorGreen} />
+          <Channel channelNumber="4" channelColor={colorYellow} />
           <ConfigMenu />
         </Grid>
       </Grid>

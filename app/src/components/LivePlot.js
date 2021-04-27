@@ -62,13 +62,24 @@ export default function LivePlot(props) {
               title: {
                 text: "Time (s)",
               },
+              zeroline: true,
+              zerolinecolor: '#777777',
+              zerolinewidth: 3,
               gridcolor: "#777777",
+              range: [-3, 3],
+              dtick: 0.5,
+              showticklabels: false,
             },
             yaxis: {
               title: {
                 text: "Voltage (mV)",
               },
+              zeroline: true,
+              zerolinecolor: '#777777',
+              zerolinewidth: 3,
               gridcolor: "#777777",
+              range: [-101, 101],
+              dtick: 20,
             },
           }}
         />
