@@ -13,12 +13,12 @@ const StyledSwitch = withStyles({
     marginTop: "-6px",
   },
   switchBase: {
-    color: (props) => props.channelColor,
+    color: (props) => props.channelcolor,
     "&$checked": {
-      color: (props) => props.channelColor,
+      // color: (props) => props.channelColor,
     },
     "&$checked + $track": {
-      backgroundColor: (props) => props.channelColor,
+      // backgroundColor: (props) => props.channelColor,
     },
   },
   checked: {},
@@ -27,7 +27,7 @@ const StyledSwitch = withStyles({
 
 const FrequencySlider = withStyles({
   root: {
-    color: (props) => props.channelColor,
+    color: (props) => props.channelcolor,
     height: 8,
     marginTop: "5px",
     marginLeft: "8px",
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridTitle: {
     border: "1px solid currentColor",
-    borderRadius: '4px',
+    borderRadius: "4px",
   },
   topGrid: {
     marginLeft: "8px",
@@ -103,34 +103,16 @@ export default function Channel(props) {
   const updateInverted = props.updateInverted;
   const enabled = props.enabled.index;
   const updateEnabled = props.updateEnabled;
-  const [frequency, setFrequency] = React.useState(Math.floor(Math.random() * 101))
-  const [offset, setOffset] = React.useState(Math.floor(Math.random() * 101))
-
-  const handleEnable = (event) => {
-    updateEnabled(index, event.target.checked);
-  }
-
-  const handleInverted = (event) => {
-    updateInverted(index, event.target.checked);
-  }
-
-  const handleFrequency = (event, value) => {
-    setFrequency(value);
-    // console.log("Value is", value);
-  }
-
-  const handleOffset = (event, value) => {
-    setOffset(value);
-    // console.log("Value is", value);
-  }
+  const [frequency, setFrequency] = React.useState(
+    Math.floor(Math.random() * 101)
+  );
+  const [offset, setOffset] = React.useState(Math.floor(Math.random() * 101));
 
   return (
     <Paper className={classes.paper}>
       <Grid container className={classes.topGrid}>
         <Grid item xs={2}>
-          <Typography className={classes.gridTitle}>
-            ADC {index}
-          </Typography>
+          <Typography className={classes.gridTitle}>ADC {index}</Typography>
         </Grid>
 
         <Grid item xs={4}>
@@ -143,9 +125,8 @@ export default function Channel(props) {
             control={
               <StyledSwitch
                 className={classes.topGridInputs}
-                channelColor={channelColor}
-                checked={enabled}
-                onChange={handleEnable}
+                channelcolor={channelColor}
+                onChange={(event) => updateEnabled(index, event.target.checked)}
                 name="enabled"
               />
             }
@@ -159,9 +140,8 @@ export default function Channel(props) {
             control={
               <StyledSwitch
                 className={classes.topGridInputs}
-                channelColor={channelColor}
-                checked={inverted}
-                onChange={handleInverted}
+                channelcolor={channelColor}
+                onChange={(event) => updateInverted(index, event.target.checked)}
                 name="invert"
               />
             }
@@ -181,20 +161,20 @@ export default function Channel(props) {
 
         <Grid item xs={6}>
           <FrequencySlider
-            channelColor={channelColor}
+            channelcolor={channelColor}
             key={`slider-${channelColor}-1`}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            onChangeCommitted={handleFrequency}
-            defaultValue={frequency}
+            onChange={(event, value) => setFrequency(value)}
+            value={frequency}
           />
           <FrequencySlider
-            channelColor={channelColor}
+            channelcolor={channelColor}
             key={`slider-${channelColor}-2`}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            onChangeCommitted={handleOffset}
-            defaultValue={offset}
+            onChange={(event, value) => setOffset(value)}
+            value={offset}
           />
         </Grid>
       </Grid>

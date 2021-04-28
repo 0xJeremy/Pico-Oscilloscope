@@ -2,7 +2,15 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Plot from "react-plotly.js";
-import { paperColor, paddingSize, colorOrange, colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
+import {
+  paperColor,
+  paddingSize,
+  colorOrange,
+  colorRed,
+  colorBlue,
+  colorGreen,
+  colorYellow,
+} from "./PageStyles";
 
 const plotHeight = "91vh";
 
@@ -31,10 +39,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function makeArr(startValue, stopValue, cardinality) {
+  var arr = [];
+  var step = (stopValue - startValue) / (cardinality - 1);
+  for (var i = 0; i < cardinality; i++) {
+    arr.push(startValue + (step * i));
+  }
+  return arr;
+}
+
 export default function LivePlot(props) {
   const classes = useStyles();
   const data = props.data;
-  const x = [-3, -2, -1, 0, 1, 2, 3]
+  const x = makeArr(-3, 3, props.maxDataSet);
 
   return (
     <div className={classes.root}>
@@ -48,7 +65,7 @@ export default function LivePlot(props) {
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorRed },
-              name: 'ADC 1'
+              name: "ADC 1",
             },
             {
               x: x,
@@ -56,7 +73,7 @@ export default function LivePlot(props) {
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorBlue },
-              name: 'ADC 2'
+              name: "ADC 2",
             },
             {
               x: x,
@@ -64,7 +81,7 @@ export default function LivePlot(props) {
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorGreen },
-              name: 'ADC 3'
+              name: "ADC 3",
             },
             {
               x: x,
@@ -72,7 +89,7 @@ export default function LivePlot(props) {
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorYellow },
-              name: 'ADC 4'
+              name: "ADC 4",
             },
           ]}
           layout={{

@@ -6,7 +6,12 @@ const app = express();
 
 // Setup Socket.io
 const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer);
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST"]
+  }
+});
 
 // Setup Node Serialport
 const SerialPort = require('serialport');
@@ -17,9 +22,15 @@ const ByteLength = require('@serialport/parser-byte-length');
 
 // Add event listeners to socket
 io.on("connection", socket => {
+	console.log("Connection made!")
 	socket.on('configUpdate', (data) => {
 		console.log("Configuration update!", data);
 	});
+
+	setInterval(() => {
+		io.emit('data', [gen(), gen(), gen(), gen()]);
+		console.log("Emitting data!");
+	}, 50);
 });
 
 // Add event listeners to serial port
@@ -36,3 +47,7 @@ app.get("/*", function (req, res) {
 });
 
 httpServer.listen(port, () => console.log(`Listening on port ${port}`));
+
+const gen = () => {
+  return Math.floor(Math.random() * (100 - -100 + 1)) + -100;
+};

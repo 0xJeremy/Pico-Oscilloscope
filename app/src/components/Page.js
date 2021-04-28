@@ -8,7 +8,7 @@ import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
 import { colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
-import { socket } from './Socket';
+import { socket } from "./Socket";
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -18,35 +18,62 @@ const useStyles = makeStyles((theme) => ({
 
 const colors = [colorRed, colorBlue, colorGreen, colorYellow];
 
-const gen = () => {
-  return Math.floor(Math.random() * (100 - -100 + 1)) + -100;
-}
-
 export default function Page() {
   const classes = useStyles();
+  const maxDataSet = 60;
   const [data, setData] = React.useState({
-    1: [gen(), gen(), gen(), gen(), gen(), gen(), gen()],
-    2: [gen(), gen(), gen(), gen(), gen(), gen(), gen()],
-    3: [gen(), gen(), gen(), gen(), gen(), gen(), gen()],
-    4: [gen(), gen(), gen(), gen(), gen(), gen(), gen()]
+    1: [],
+    2: [],
+    3: [],
+    4: [],
   });
-  const [enabled, setEnabled] = React.useState({1: false, 2: false, 3: false, 4: false});
-  const [inverted, setInverted] = React.useState({1: false, 2: false, 3: false, 4: false});
+  const [enabled, setEnabled] = React.useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const [inverted, setInverted] = React.useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
 
   const updateEnabled = (pin, value) => {
-    setEnabled({...enabled, [pin]: value});
+    setEnabled({ ...enabled, [pin]: value });
     // console.log("Enabled:", enabled);
-  }
+  };
 
   const updateInverted = (pin, value) => {
-    setEnabled({...inverted, [pin]: value});
+    setEnabled({ ...inverted, [pin]: value });
     // console.log("Inverted:", inverted);
-  }
+  };
 
-  // socket.on('data', (data) => {
-  //   console.log("New socket data!", data);
-  // });
-
+  React.useEffect(() => {
+    socket.on('data', (newData) => {
+      setData((data) => {
+        if (data[1].length >= maxDataSet) {
+          return ({
+            1: [newData[0]],
+            2: [newData[1]],
+            3: [newData[2]],
+            4: [newData[3]],
+          });
+        }
+        else {
+          return ({
+            1: data[1].concat(newData[0]),
+            2: data[2].concat(newData[1]),
+            3: data[3].concat(newData[2]),
+            4: data[4].concat(newData[3]),
+          });
+        }
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   return (
     <div>
       <AppBar>
@@ -55,12 +82,22 @@ export default function Page() {
 
       <Grid container spacing={0} className={classes.grid}>
         <Grid item xs={9}>
-          <LivePlot data={data}/>
+          <LivePlot data={data} maxDataSet={maxDataSet} />
         </Grid>
 
         <Grid item xs={3}>
           {colors.map((value, index) => {
-            return <Channel channelNumber={index+1} channelColor={value} enabled={enabled} updateEnabled={updateEnabled} inverted={inverted} updateInverted={updateInverted} />
+            return (
+              <Channel
+                channelNumber={index + 1}
+                channelColor={value}
+                enabled={enabled}
+                updateEnabled={updateEnabled}
+                inverted={inverted}
+                updateInverted={updateInverted}
+                key={index}
+              />
+            );
           })}
           <ConfigMenu />
         </Grid>

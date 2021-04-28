@@ -100,6 +100,7 @@ export default function ConfigMenu(props) {
     checkedB: false,
     checkedC: false,
   });
+  const [slider, setSlider] = React.useState(Math.floor(Math.random() * 101))
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -121,7 +122,6 @@ export default function ConfigMenu(props) {
           <FormControlLabel
             control={
               <StyledSwitch
-                checked={state.checkedA}
                 onChange={handleChange}
                 name="checkedA"
               />
@@ -135,7 +135,6 @@ export default function ConfigMenu(props) {
           <FormControlLabel
             control={
               <StyledSwitch
-                checked={state.checkedB}
                 onChange={handleChange}
                 name="checkedB"
               />
@@ -153,10 +152,12 @@ export default function ConfigMenu(props) {
 
         <Grid item xs={6}>
           <FrequencySlider
+            key={`slider-config`}
             className={classes.input}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            defaultValue={Math.floor(Math.random() * 101)}
+            onChange={(event, value) => setSlider(value)}
+            value={slider}
           />
         </Grid>
       </Grid>
