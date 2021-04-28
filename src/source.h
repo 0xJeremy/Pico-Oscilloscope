@@ -14,7 +14,8 @@
 #define CONFIG_SIZE 8
 #define MAX_PERIOD
 
-#define HZ_2_DELAY(F) (uint32_t)(1000000/F)
+#define MAX_HZ 200000
+#define HZ_2_DELAY(F) (1000000/F)
 
 uint64_t cnt;
 
@@ -27,6 +28,8 @@ struct config_t{
 };
 
 uint8_t config[CONFIG_SIZE];
+uint16_t adc_out[5] = {0x4141, 0x4242, 0x4343, 0x4444, 0x0A2E};
+
 
 struct config_t sys_config;
 
