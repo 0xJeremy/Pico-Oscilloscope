@@ -98,23 +98,38 @@ const useStyles = makeStyles((theme) => ({
 export default function Channel(props) {
   const classes = useStyles(props);
   const channelColor = props.channelColor;
-  const channelNumber = props.channelNumber;
-  const [state, setState] = React.useState({
-    checkedA: false,
-    checkedB: false,
-    checkedC: false,
-  });
+  const index = props.channelNumber;
+  const inverted = props.inverted.index;
+  const updateInverted = props.updateInverted;
+  const enabled = props.enabled.index;
+  const updateEnabled = props.updateEnabled;
+  const [frequency, setFrequency] = React.useState(Math.floor(Math.random() * 101))
+  const [offset, setOffset] = React.useState(Math.floor(Math.random() * 101))
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  const handleEnable = (event) => {
+    updateEnabled(index, event.target.checked);
+  }
+
+  const handleInverted = (event) => {
+    updateInverted(index, event.target.checked);
+  }
+
+  const handleFrequency = (event, value) => {
+    setFrequency(value);
+    // console.log("Value is", value);
+  }
+
+  const handleOffset = (event, value) => {
+    setOffset(value);
+    // console.log("Value is", value);
+  }
 
   return (
     <Paper className={classes.paper}>
       <Grid container className={classes.topGrid}>
         <Grid item xs={2}>
           <Typography className={classes.gridTitle}>
-            ADC {channelNumber}
+            ADC {index}
           </Typography>
         </Grid>
 
@@ -129,9 +144,9 @@ export default function Channel(props) {
               <StyledSwitch
                 className={classes.topGridInputs}
                 channelColor={channelColor}
-                checked={state.checkedA}
-                onChange={handleChange}
-                name="checkedA"
+                checked={enabled}
+                onChange={handleEnable}
+                name="enabled"
               />
             }
           />
@@ -145,9 +160,9 @@ export default function Channel(props) {
               <StyledSwitch
                 className={classes.topGridInputs}
                 channelColor={channelColor}
-                checked={state.checkedB}
-                onChange={handleChange}
-                name="checkedB"
+                checked={inverted}
+                onChange={handleInverted}
+                name="invert"
               />
             }
           />
@@ -167,15 +182,19 @@ export default function Channel(props) {
         <Grid item xs={6}>
           <FrequencySlider
             channelColor={channelColor}
+            key={`slider-${channelColor}-1`}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            defaultValue={Math.floor(Math.random() * 101)}
+            onChangeCommitted={handleFrequency}
+            defaultValue={frequency}
           />
           <FrequencySlider
             channelColor={channelColor}
+            key={`slider-${channelColor}-2`}
             valueLabelDisplay="auto"
             aria-label="pretto slider"
-            defaultValue={Math.floor(Math.random() * 101)}
+            onChangeCommitted={handleOffset}
+            defaultValue={offset}
           />
         </Grid>
       </Grid>

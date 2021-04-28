@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Plot from "react-plotly.js";
-import { paperColor, paddingSize, colorOrange } from "./PageStyles";
+import { paperColor, paddingSize, colorOrange, colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
 
 const plotHeight = "91vh";
 
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LivePlot(props) {
   const classes = useStyles();
-  const [data, setData] = React.useState([]);
-  const [dataLength, setDataLength] = React.useState(0);
+  const data = props.data;
+  const x = [-3, -2, -1, 0, 1, 2, 3]
 
   return (
     <div className={classes.root}>
@@ -43,11 +43,36 @@ export default function LivePlot(props) {
           className={classes.plot}
           data={[
             {
-              x: [...Array(dataLength).keys()],
-              y: data,
+              x: x,
+              y: data[1],
               type: "scatter",
               mode: "lines+markers",
-              marker: { color: "#f50057" },
+              marker: { color: colorRed },
+              name: 'ADC 1'
+            },
+            {
+              x: x,
+              y: data[2],
+              type: "scatter",
+              mode: "lines+markers",
+              marker: { color: colorBlue },
+              name: 'ADC 2'
+            },
+            {
+              x: x,
+              y: data[3],
+              type: "scatter",
+              mode: "lines+markers",
+              marker: { color: colorGreen },
+              name: 'ADC 3'
+            },
+            {
+              x: x,
+              y: data[4],
+              type: "scatter",
+              mode: "lines+markers",
+              marker: { color: colorYellow },
+              name: 'ADC 4'
             },
           ]}
           layout={{
