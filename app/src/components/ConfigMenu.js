@@ -100,7 +100,7 @@ export default function ConfigMenu(props) {
     checkedB: false,
     checkedC: false,
   });
-  const [slider, setSlider] = React.useState(Math.floor(Math.random() * 101))
+  const [slider, setSlider] = React.useState(Math.floor(Math.random() * 101));
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -120,12 +120,7 @@ export default function ConfigMenu(props) {
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
-            control={
-              <StyledSwitch
-                onChange={handleChange}
-                name="checkedA"
-              />
-            }
+            control={<StyledSwitch onChange={handleChange} name="checkedA" />}
           />
         </Grid>
         <Grid item xs={4}>
@@ -133,12 +128,7 @@ export default function ConfigMenu(props) {
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
-            control={
-              <StyledSwitch
-                onChange={handleChange}
-                name="checkedB"
-              />
-            }
+            control={<StyledSwitch onChange={handleChange} name="checkedB" />}
           />
         </Grid>
       </Grid>

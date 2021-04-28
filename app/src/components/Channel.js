@@ -141,7 +141,9 @@ export default function Channel(props) {
               <StyledSwitch
                 className={classes.topGridInputs}
                 channelcolor={channelColor}
-                onChange={(event) => updateInverted(index, event.target.checked)}
+                onChange={(event) =>
+                  updateInverted(index, event.target.checked)
+                }
                 name="invert"
               />
             }

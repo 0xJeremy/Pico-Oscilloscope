@@ -51,29 +51,28 @@ export default function Page() {
   };
 
   React.useEffect(() => {
-    socket.on('data', (newData) => {
+    socket.on("data", (newData) => {
       setData((data) => {
         if (data[1].length >= maxDataSet) {
-          return ({
+          return {
             1: [newData[0]],
             2: [newData[1]],
             3: [newData[2]],
             4: [newData[3]],
-          });
-        }
-        else {
-          return ({
+          };
+        } else {
+          return {
             1: data[1].concat(newData[0]),
             2: data[2].concat(newData[1]),
             3: data[3].concat(newData[2]),
             4: data[4].concat(newData[3]),
-          });
+          };
         }
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   return (
     <div>
       <AppBar>
