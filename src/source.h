@@ -14,8 +14,8 @@
 #define CONFIG_SIZE 8
 #define MAX_PERIOD
 
-#define MAX_HZ 200000
-#define HZ_2_DELAY(F) (1000000/F)
+#define MAX_HZ 500000
+#define HZ_2_DELAY(F) (-1000000/F)
 
 uint64_t cnt;
 
