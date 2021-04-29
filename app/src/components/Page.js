@@ -61,9 +61,19 @@ export default function Page() {
     socket.emit("updateEnabled", { ...enabled, [pin]: value });
   };
 
+  const updateAllEnabled = (value) => {
+    setEnabled({0: value, 1: value, 2: value, 3: value});
+    socket.emit("updateEnabled", {0: value, 1: value, 2: value, 3: value});
+  };
+
   const updateInverted = (pin, value) => {
     setInverted({ ...inverted, [pin]: value });
     socket.emit("updateInverted", { ...inverted, [pin]: value });
+  };
+
+  const updateAllInverted = (value) => {
+    setInverted({0: value, 1: value, 2: value, 3: value});
+    socket.emit("updateInverted", {0: value, 1: value, 2: value, 3: value});
   };
 
   const updateFrequency = (pin, value, sendUpdate) => {
@@ -73,12 +83,26 @@ export default function Page() {
     }
   };
 
+  const updateAllFrequencies = (value) => {
+    setFrequency({0: value, 1: value, 2: value, 3: value});
+    socket.emit("updateFrequency", {0: value, 1: value, 2: value, 3: value});
+  }
+
   const updateOffset = (pin, value, sendUpdate) => {
     setOffset({ ...offset, [pin]: value });
     if (sendUpdate) {
       socket.emit("updateoffset", { ...offset, [pin]: value });
     }
   };
+
+  const updateAllOffsets = (value) => {
+    setOffset({0: value, 1: value, 2: value, 3: value});
+    socket.emit("updateoffset", {0: value, 1: value, 2: value, 3: value});
+  }
+
+  const sendStreamUpdate = (value) => {
+    socket.emit('streamUpdate', value);
+  }
 
   React.useEffect(() => {
     socket.on("data", (newData) => {
@@ -92,7 +116,6 @@ export default function Page() {
             3: newData[3],
           };
         } else {
-          console.log("Concating!", data[0].concat(newData[0]));
           return {
             0: data[0].concat(newData[0]),
             1: data[1].concat(newData[1]),
@@ -134,7 +157,7 @@ export default function Page() {
               />
             );
           })}
-          <ConfigMenu />
+          <ConfigMenu updateAllEnabled={updateAllEnabled} updateAllInverted={updateAllInverted} updateAllFrequencies={updateAllFrequencies} updateAllOffsets={updateAllOffsets} sendStreamUpdate={sendStreamUpdate}/>
         </Grid>
       </Grid>
 

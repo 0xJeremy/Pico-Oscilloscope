@@ -8,6 +8,7 @@ import Slider from "@material-ui/core/Slider";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import PauseIcon from "@material-ui/icons/Pause";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { paddingSize, colorOrange, paperColor } from "./PageStyles";
 
 const StyledSwitch = withStyles({
@@ -95,16 +96,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ConfigMenu(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    checkedA: false,
-    checkedB: false,
-    checkedC: false,
-  });
-  const [slider, setSlider] = React.useState(Math.floor(Math.random() * 101));
+  const {updateAllEnabled, updateAllInverted, updateAllFrequencies, updateAllOffsets, sendStreamUpdate} = props;
+  const [toggle, setToggle] = React.useState(false);
+  const [inverted, setInverted] = React.useState(false);
+  const [frequency, setFrequency] = React.useState(0);
+  const [offset, setOffset] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  const handleToggle = (event) => {
+    setToggle(event.target.checked);
+    updateAllEnabled(event.target.checked);
+  }
+
+  const handleInvert = (event) => {
+    setInverted(event.target.checked);
+    updateAllInverted(event.target.checked);
+  }
+
+  const handleFrequency = (event, value) => {
+    setFrequency(value);
+    updateAllFrequencies(value);
+  }
+
+  const handleOffset = (event, value) => {
+    setOffset(value);
+    updateAllOffsets(value);
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -120,7 +137,7 @@ export default function ConfigMenu(props) {
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
-            control={<StyledSwitch onChange={handleChange} name="checkedA" />}
+            control={<StyledSwitch onChange={handleToggle} checked={toggle} />}
           />
         </Grid>
         <Grid item xs={4}>
@@ -128,7 +145,7 @@ export default function ConfigMenu(props) {
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
-            control={<StyledSwitch onChange={handleChange} name="checkedB" />}
+            control={<StyledSwitch onChange={handleInvert} checked={inverted} />}
           />
         </Grid>
       </Grid>
@@ -138,6 +155,9 @@ export default function ConfigMenu(props) {
           <Typography className={classes.gridText}>
             All Channel Frequencies
           </Typography>
+          <Typography className={classes.gridText}>
+            All Channel Offsets
+          </Typography>
         </Grid>
 
         <Grid item xs={6}>
@@ -145,22 +165,52 @@ export default function ConfigMenu(props) {
             key={`slider-config`}
             className={classes.input}
             valueLabelDisplay="auto"
-            onChange={(event, value) => setSlider(value)}
-            value={slider}
+            onChange={handleFrequency}
+            value={frequency}
+          />
+          <FrequencySlider
+            key={`slider-config`}
+            className={classes.input}
+            valueLabelDisplay="auto"
+            onChange={handleOffset}
+            value={offset}
           />
         </Grid>
       </Grid>
 
-      <Button
-        className={classes.button}
-        // classes={{ outlined: classes.outline }}
-        variant="contained"
-        color="primary"
-        size="large"
-        startIcon={<PauseIcon />}
-      >
-        Pause Collection
-      </Button>
+      {!paused &&
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<PauseIcon />}
+          onClick={() => {
+            setPaused(!paused);
+            sendStreamUpdate(true);
+          }}
+        >
+          Pause Collection
+        </Button>
+      }
+
+      {paused &&
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          size="large"
+          startIcon={<PlayArrowIcon />}
+          onClick={() => {
+            setPaused(!paused);
+            sendStreamUpdate(false);
+          }}
+        >
+          Resume Collection
+        </Button>
+      }
+
+      
     </Paper>
   );
 }

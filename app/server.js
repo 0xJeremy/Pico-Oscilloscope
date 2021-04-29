@@ -24,6 +24,7 @@ const enabled = [false, false, false, false];
 const inverted = [false, false, false, false];
 const frequency = [50, 50, 50, 50];
 const offset = [0, 0, 0, 0];
+let paused = false;
 
 const updateState = (variable, newData) => {
 	for(var i = 0; i < 4; i++) {
@@ -71,9 +72,16 @@ io.on("connection", socket => {
 		console.log("Offset:", offset);
 	});
 
+	socket.on('streamUpdate', (data) => {
+		console.log("Pausing?", data);
+		paused = data;
+	})
+
 	setInterval(() => {
-		io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
-		console.log("Emitting data!");
+		if(!paused) {
+			io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
+			console.log("Emitting data!");
+		}
 	}, 250);
 });
 
