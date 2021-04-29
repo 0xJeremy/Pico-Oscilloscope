@@ -99,20 +99,22 @@ export default function Channel(props) {
   const classes = useStyles(props);
   const channelColor = props.channelColor;
   const index = props.channelNumber;
-  const inverted = props.inverted.index;
-  const updateInverted = props.updateInverted;
-  const enabled = props.enabled.index;
-  const updateEnabled = props.updateEnabled;
-  const [frequency, setFrequency] = React.useState(
-    Math.floor(Math.random() * 101)
-  );
-  const [offset, setOffset] = React.useState(Math.floor(Math.random() * 101));
+  const inverted = props.inverted[index];
+  const enabled = props.enabled[index];
+  const frequency = props.frequency[index];
+  const offset = props.offset[index];
+  const {
+    updateInverted,
+    updateEnabled,
+    updateFrequency,
+    updateOffset,
+  } = props;
 
   return (
     <Paper className={classes.paper}>
       <Grid container className={classes.topGrid}>
         <Grid item xs={2}>
-          <Typography className={classes.gridTitle}>ADC {index}</Typography>
+          <Typography className={classes.gridTitle}>ADC {index + 1}</Typography>
         </Grid>
 
         <Grid item xs={4}>
@@ -128,6 +130,7 @@ export default function Channel(props) {
                 channelcolor={channelColor}
                 onChange={(event) => updateEnabled(index, event.target.checked)}
                 name="enabled"
+                checked={enabled}
               />
             }
           />
@@ -145,6 +148,7 @@ export default function Channel(props) {
                   updateInverted(index, event.target.checked)
                 }
                 name="invert"
+                checked={inverted}
               />
             }
           />
@@ -164,18 +168,22 @@ export default function Channel(props) {
         <Grid item xs={6}>
           <FrequencySlider
             channelcolor={channelColor}
-            key={`slider-${channelColor}-1`}
+            key={`slider-${channelColor}`}
             valueLabelDisplay="auto"
-            aria-label="pretto slider"
-            onChange={(event, value) => setFrequency(value)}
+            onChange={(event, value) => updateFrequency(index, value, false)}
+            onChangeCommitted={(event, value) =>
+              updateFrequency(index, value, true)
+            }
             value={frequency}
           />
           <FrequencySlider
             channelcolor={channelColor}
-            key={`slider-${channelColor}-2`}
+            key={`slider-${channelColor}-1`}
             valueLabelDisplay="auto"
-            aria-label="pretto slider"
-            onChange={(event, value) => setOffset(value)}
+            onChange={(event, value) => updateOffset(index, value, false)}
+            onChangeCommitted={(event, value) =>
+              updateOffset(index, value, true)
+            }
             value={offset}
           />
         </Grid>

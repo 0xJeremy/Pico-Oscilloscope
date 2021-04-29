@@ -20,17 +20,60 @@ const ByteLength = require('@serialport/parser-byte-length');
 
 // const parser = port.pipe(new ByteLength({length: 8}));
 
+const enabled = [false, false, false, false];
+const inverted = [true, true, true, true];
+const frequency = [50, 50, 50, 50];
+const offset = [0, 0, 0, 0];
+
+const updateState = (variable, newData) => {
+	for(var i = 0; i < 4; i++) {
+		variable[i] = newData[i];
+	}
+}
+
+const processData = (data) => {
+	for(var i = 0; i < 4; i++) {
+		if (enabled[i] === false) {
+			data[i] = [];
+		}
+		else if (inverted[i] === true) {
+			data[i] *= -1;
+		}
+
+		data[i] += offset[i];
+	}
+	return data;
+}
+
+
 // Add event listeners to socket
 io.on("connection", socket => {
 	console.log("Connection made!")
-	socket.on('configUpdate', (data) => {
-		console.log("Configuration update!", data);
+
+	socket.on('updateEnabled', (data) => {
+		updateState(enabled, data);
+		console.log("Enabled:", enabled);
+	});
+
+	socket.on('updateInverted', (data) => {
+		updateState(inverted, data);
+		console.log("Inverted:", inverted);
+	});
+
+	socket.on('updateFrequency', (data) => {
+		updateState(frequency, data);
+		console.log("Frequency:", frequency);
+	});
+
+	socket.on('updateoffset', (data) => {
+		updateState(offset, data);
+		console.log("Offset:", offset);
 	});
 
 	setInterval(() => {
-		io.emit('data', [gen(), gen(), gen(), gen()]);
+		io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
 		console.log("Emitting data!");
-	}, 50);
+	}, 200);
 });
 
 // Add event listeners to serial port
@@ -49,5 +92,5 @@ app.get("/*", function (req, res) {
 httpServer.listen(port, () => console.log(`Listening on port ${port}`));
 
 const gen = () => {
-  return Math.floor(Math.random() * (100 - -100 + 1)) + -100;
+  return Math.floor(Math.random() * (100 - 0 + 1)) + 0;
 };

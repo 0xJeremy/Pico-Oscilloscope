@@ -6,23 +6,23 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { paperColor } from "./PageStyles";
+import { paperColor, colorBlue } from "./PageStyles";
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
-    color: "#4fbbd6",
+    color: colorBlue,
     backgroundColor: paperColor,
   },
   blue: {
-    color: "#4fbbd6",
+    color: colorBlue,
   },
   outline_blue: {
-    borderColor: "#4fbbd6",
+    borderColor: colorBlue,
     height: "100%",
   },
   box: {
     backgroundColor: paperColor,
-    color: "#4fbbd6",
+    color: colorBlue,
     borderRadius: "0px",
   },
   paper: {
@@ -55,12 +55,9 @@ export default function InfoBox(props) {
         <DialogContent className={classes.box}>
           <DialogContentText className={classes.box}>
             Welcome to the Raspberry Pi[co] [OSS]illoscope: a Raspberry Pi and
-            Raspberry Pi Pico open-source oscilloscope.
+            Raspberry Pi Pico open-source oscilloscope. Please enjoy.
             <br />
-            Please enjoy.
-            <br />
-            <br />
-            View the source code{" "}
+            View the source code and contribute to the project{" "}
             <a
               className={classes.link}
               href="https://github.com/0xJeremy/p6"
@@ -70,6 +67,9 @@ export default function InfoBox(props) {
               here
             </a>
             .
+            <br />
+            <br />
+            Thanks Brandon.
             <br />
             <br />
             Made with ❤️ by Jeremy Kanovsky & Ben London

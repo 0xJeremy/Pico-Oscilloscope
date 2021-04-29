@@ -61,7 +61,7 @@ export default function LivePlot(props) {
           data={[
             {
               x: x,
-              y: data[1],
+              y: data[0],
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorRed },
@@ -69,7 +69,7 @@ export default function LivePlot(props) {
             },
             {
               x: x,
-              y: data[2],
+              y: data[1],
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorBlue },
@@ -77,7 +77,7 @@ export default function LivePlot(props) {
             },
             {
               x: x,
-              y: data[3],
+              y: data[2],
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorGreen },
@@ -85,7 +85,7 @@ export default function LivePlot(props) {
             },
             {
               x: x,
-              y: data[4],
+              y: data[3],
               type: "scatter",
               mode: "lines+markers",
               marker: { color: colorYellow },

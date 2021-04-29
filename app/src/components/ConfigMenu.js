@@ -145,7 +145,6 @@ export default function ConfigMenu(props) {
             key={`slider-config`}
             className={classes.input}
             valueLabelDisplay="auto"
-            aria-label="pretto slider"
             onChange={(event, value) => setSlider(value)}
             value={slider}
           />
