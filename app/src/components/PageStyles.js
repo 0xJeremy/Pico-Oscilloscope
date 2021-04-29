@@ -6,6 +6,7 @@ const colorBlue = "#4fbbd6";
 const colorGreen = "#38A700";
 const colorYellow = "#F7CB15";
 const paddingSize = "8px";
+const plotGridColor = "#777777";
 
 export {
   paperColor,
@@ -15,4 +16,5 @@ export {
   colorBlue,
   colorGreen,
   colorYellow,
+  plotGridColor,
 };

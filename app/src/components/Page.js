@@ -23,6 +23,7 @@ const gen = () => Math.floor(Math.random() * 101);
 export default function Page() {
   const classes = useStyles();
   const maxDataSet = 60;
+  // Here be dragons. I'm not proud...
   const [data, setData] = React.useState({
     0: [],
     1: [],
@@ -56,39 +57,42 @@ export default function Page() {
 
   const updateEnabled = (pin, value) => {
     setEnabled({ ...enabled, [pin]: value });
-    socket.emit("updateEnabled", enabled);
+    // This is redundant but necessary...
+    socket.emit("updateEnabled", { ...enabled, [pin]: value });
   };
 
   const updateInverted = (pin, value) => {
     setInverted({ ...inverted, [pin]: value });
-    socket.emit("updateInverted", inverted);
+    socket.emit("updateInverted", { ...inverted, [pin]: value });
   };
 
   const updateFrequency = (pin, value, sendUpdate) => {
     setFrequency({ ...frequency, [pin]: value });
     if (sendUpdate) {
-      socket.emit("updateFrequency", frequency);
+      socket.emit("updateFrequency", { ...frequency, [pin]: value });
     }
   };
 
   const updateOffset = (pin, value, sendUpdate) => {
     setOffset({ ...offset, [pin]: value });
     if (sendUpdate) {
-      socket.emit("updateoffset", offset);
+      socket.emit("updateoffset", { ...offset, [pin]: value });
     }
   };
 
   React.useEffect(() => {
     socket.on("data", (newData) => {
+      console.log("data:", newData);
       setData((data) => {
         if (data[0].length >= maxDataSet) {
           return {
-            0: [newData[0]],
-            1: [newData[1]],
-            2: [newData[2]],
-            3: [newData[3]],
+            0: newData[0],
+            1: newData[1],
+            2: newData[2],
+            3: newData[3],
           };
         } else {
+          console.log("Concating!", data[0].concat(newData[0]));
           return {
             0: data[0].concat(newData[0]),
             1: data[1].concat(newData[1]),
@@ -116,15 +120,15 @@ export default function Page() {
           {colors.map((value, index) => {
             return (
               <Channel
-                channelNumber={index}
+                index={index}
                 channelColor={value}
-                enabled={enabled}
+                enabled={enabled[index]}
                 updateEnabled={updateEnabled}
-                inverted={inverted}
+                inverted={inverted[index]}
                 updateInverted={updateInverted}
-                frequency={frequency}
+                frequency={frequency[index]}
                 updateFrequency={updateFrequency}
-                offset={offset}
+                offset={offset[index]}
                 updateOffset={updateOffset}
                 key={index}
               />

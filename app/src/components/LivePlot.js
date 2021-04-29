@@ -10,6 +10,7 @@ import {
   colorBlue,
   colorGreen,
   colorYellow,
+  plotGridColor,
 } from "./PageStyles";
 
 const plotHeight = "91vh";
@@ -53,45 +54,25 @@ export default function LivePlot(props) {
   const data = props.data;
   const x = makeArr(-3, 3, props.maxDataSet);
 
+  const plotData = [colorRed, colorBlue, colorGreen, colorYellow].map(
+    (color, index) => {
+      return {
+        x: x,
+        y: data[index],
+        type: "scatter",
+        mode: "lines+markers",
+        marker: { color: color },
+        name: `ADC ${index + 1}`,
+      };
+    }
+  );
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Plot
           className={classes.plot}
-          data={[
-            {
-              x: x,
-              y: data[0],
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: colorRed },
-              name: "ADC 1",
-            },
-            {
-              x: x,
-              y: data[1],
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: colorBlue },
-              name: "ADC 2",
-            },
-            {
-              x: x,
-              y: data[2],
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: colorGreen },
-              name: "ADC 3",
-            },
-            {
-              x: x,
-              y: data[3],
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: colorYellow },
-              name: "ADC 4",
-            },
-          ]}
+          data={plotData}
           layout={{
             plot_bgcolor: paperColor,
             paper_bgcolor: paperColor,
@@ -105,9 +86,9 @@ export default function LivePlot(props) {
                 text: "Time",
               },
               zeroline: true,
-              zerolinecolor: "#777777",
+              zerolinecolor: plotGridColor,
               zerolinewidth: 3,
-              gridcolor: "#777777",
+              gridcolor: plotGridColor,
               range: [-3, 3],
               dtick: 0.5,
               showticklabels: false,
@@ -117,9 +98,9 @@ export default function LivePlot(props) {
                 text: "Voltage (mV)",
               },
               zeroline: true,
-              zerolinecolor: "#777777",
+              zerolinecolor: plotGridColor,
               zerolinewidth: 3,
-              gridcolor: "#777777",
+              gridcolor: plotGridColor,
               range: [-101, 101],
               dtick: 20,
             },

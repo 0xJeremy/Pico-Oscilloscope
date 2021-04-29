@@ -97,13 +97,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Channel(props) {
   const classes = useStyles(props);
-  const channelColor = props.channelColor;
-  const index = props.channelNumber;
-  const inverted = props.inverted[index];
-  const enabled = props.enabled[index];
-  const frequency = props.frequency[index];
-  const offset = props.offset[index];
   const {
+    index,
+    channelColor,
+    inverted,
+    enabled,
+    frequency,
+    offset,
     updateInverted,
     updateEnabled,
     updateFrequency,
@@ -129,7 +129,6 @@ export default function Channel(props) {
                 className={classes.topGridInputs}
                 channelcolor={channelColor}
                 onChange={(event) => updateEnabled(index, event.target.checked)}
-                name="enabled"
                 checked={enabled}
               />
             }
@@ -147,7 +146,6 @@ export default function Channel(props) {
                 onChange={(event) =>
                   updateInverted(index, event.target.checked)
                 }
-                name="invert"
                 checked={inverted}
               />
             }

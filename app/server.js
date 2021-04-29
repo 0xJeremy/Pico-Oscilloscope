@@ -21,7 +21,7 @@ const ByteLength = require('@serialport/parser-byte-length');
 // const parser = port.pipe(new ByteLength({length: 8}));
 
 const enabled = [false, false, false, false];
-const inverted = [true, true, true, true];
+const inverted = [false, false, false, false];
 const frequency = [50, 50, 50, 50];
 const offset = [0, 0, 0, 0];
 
@@ -36,11 +36,12 @@ const processData = (data) => {
 		if (enabled[i] === false) {
 			data[i] = [];
 		}
-		else if (inverted[i] === true) {
+
+		if (inverted[i] === true) {
 			data[i] *= -1;
 		}
 
-		data[i] += offset[i];
+		// data[i] += offset[i];
 	}
 	return data;
 }
@@ -73,7 +74,7 @@ io.on("connection", socket => {
 	setInterval(() => {
 		io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
 		console.log("Emitting data!");
-	}, 200);
+	}, 250);
 });
 
 // Add event listeners to serial port
@@ -92,5 +93,5 @@ app.get("/*", function (req, res) {
 httpServer.listen(port, () => console.log(`Listening on port ${port}`));
 
 const gen = () => {
-  return Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+  return Math.floor(Math.random() * 101);
 };
