@@ -1,8 +1,14 @@
 #include "source.h"
 
+static int convert(int freq){
+    int max_hz = 1000000;
+    int result = (max_hz/freq);
+    return result;
+}
+
 int main(){
     reading_config = false;
-    set_sys_clock_khz(270000, true);
+    // set_sys_clock_khz(270000, true);
     stdio_init_all();
     stdio_flush();
     adc_init();
@@ -14,77 +20,69 @@ int main(){
 
 
     sys_config.freq = 1;
-    int32_t delay = HZ_2_DELAY(sys_config.freq);
-    add_repeating_timer_us(delay, ADC_Read_Callback, NULL, &read_adc_timer);
-
+    sys_config.period = convert(sys_config.freq);
     multicore_launch_core1(get_config);
+    uint64_t t;
+    sleep_ms(100);
     while (1) {
-        tight_loop_contents();
+        t = time_us_64();
+        if(t % sys_config.period == 0){
+            adc_select_input(ADC_0);
+            adc_out[0] = adc_read();
+            
+            adc_select_input(ADC_1);
+            adc_out[1] = adc_read();
+            
+            adc_select_input(ADC_2);
+            adc_out[2] = adc_read();
+
+            adc_select_input(ADC_3);
+            adc_out[3] = adc_read();
+            printf("%c%c%c%c%c%c%c%c",
+                ((char *)adc_out)[0],
+                ((char *)adc_out)[1],
+                ((char *)adc_out)[2],
+                ((char *)adc_out)[3],
+                ((char *)adc_out)[4],
+                ((char *)adc_out)[5],
+                ((char *)adc_out)[6],
+                ((char *)adc_out)[7]);
+            
+        }
     }
 }
 
 void get_config(){
     while(1){
         int read_char;
-        if ((read_char = config_inc()) != PICO_ERROR_TIMEOUT){
+        if ((read_char = config_inc()) != PICO_ERROR_TIMEOUT && reading_config == false){
             reading_config = true;
             uint8_t bread = 1;
-            config[0] = read_char;
-            while(bread < 8 && (read_char = config_inc()) != PICO_ERROR_TIMEOUT){
-                config[bread++] = read_char;
+            config = 0;
+            config |= (read_char);
+            while(bread < CONFIG_SIZE && (read_char = config_inc()) != PICO_ERROR_TIMEOUT){
+                config |= (read_char << (8*bread++));
             }
             if (bread == CONFIG_SIZE){
                 set_config();
             }
-            memset(config, 0, CONFIG_SIZE);
+            bread = 0;
             reading_config = false;
         }
     }
 }
 
 void set_config(){
-    cancel_repeating_timer(&read_adc_timer);
+    sys_config.freq = config;
 
-    struct config_t temp_config = *((struct config_t *)config);
-    sys_config.c1_toggle = temp_config.c1_toggle;
-    sys_config.c2_toggle = temp_config.c2_toggle;
-    sys_config.c3_toggle = temp_config.c3_toggle;
-    sys_config.c4_toggle = temp_config.c4_toggle;
-    sys_config.freq = temp_config.freq;
-
-    
     if (sys_config.freq < 1)
         sys_config.freq = 1;
     else if (sys_config.freq > MAX_HZ){
         sys_config.freq = MAX_HZ;
     }
-    // printf("Toggle %u, %u, %u, %u, Freq = %u\n", 
-    //     sys_config.c1_toggle, sys_config.c2_toggle, sys_config.c3_toggle, sys_config.c4_toggle, sys_config.freq);
-    int32_t delay = HZ_2_DELAY(sys_config.freq);
-    add_repeating_timer_us(delay, ADC_Read_Callback, NULL, &read_adc_timer);
+    sys_config.period = convert(sys_config.freq);
 }
 
 int config_inc(){
     return getchar_timeout_us(0);
-}
-
-
-bool ADC_Read_Callback(struct repeating_timer *t) {
-    if (reading_config){
-        return true;
-    }
-    adc_select_input(ADC_0);
-    adc_out[0] = adc_read();
-
-    adc_select_input(ADC_1);
-    adc_out[1] = adc_read();
-    
-    adc_select_input(ADC_2);
-    adc_out[2] = adc_read();
-
-    adc_select_input(ADC_3);
-    adc_out[3] = adc_read();
-    fwrite(adc_out, 1, 10, stdout);
-    // printf("Hello\n");
-    return true;
 }
