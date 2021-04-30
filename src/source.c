@@ -85,5 +85,6 @@ bool ADC_Read_Callback(struct repeating_timer *t) {
     adc_select_input(ADC_3);
     adc_out[3] = adc_read();
     fwrite(adc_out, 1, 10, stdout);
+    // printf("Hello\n");
     return true;
 }
