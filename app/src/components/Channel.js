@@ -6,7 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Slider from "@material-ui/core/Slider";
+import Input from "@material-ui/core/Input";
 import { paddingSize, paperColor } from "./PageStyles";
+import { minFrequency, maxFrequency, minOffset, maxOffset } from "./Common";
 
 const StyledSwitch = withStyles({
   root: {
@@ -30,8 +32,7 @@ const FrequencySlider = withStyles({
     color: (props) => props.channelcolor,
     height: 8,
     marginTop: "5px",
-    marginLeft: "8px",
-    width: "15.5vw",
+    width: "13vw",
   },
   thumb: {
     height: 24,
@@ -57,6 +58,21 @@ const FrequencySlider = withStyles({
     borderRadius: 4,
   },
 })(Slider);
+
+const StyledInput = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "white",
+      borderBottomColor: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "white",
+    },
+    "& .MuiInput-underline": {
+      color: "white",
+    },
+  },
+})(Input);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
   topGrid: {
     marginLeft: "8px",
     marginTop: "8px",
+  },
+  input: {
+    marginTop: "10px",
+    color: (props) => props.channelColor,
   },
 }));
 
@@ -154,16 +174,16 @@ export default function Channel(props) {
       </Grid>
 
       <Grid container className={classes.grid}>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography className={classes.bottomGridInputs}>
-            Channel Frequency
+            Frequency
           </Typography>
           <Typography className={classes.bottomGridInputs}>
-            Channel Offset (mV)
+            Offset (mV)
           </Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <FrequencySlider
             channelcolor={channelColor}
             key={`slider-${channelColor}`}
@@ -173,6 +193,8 @@ export default function Channel(props) {
               updateFrequency(index, value, true)
             }
             value={frequency}
+            min={minFrequency}
+            max={maxFrequency}
           />
           <FrequencySlider
             channelcolor={channelColor}
@@ -183,6 +205,41 @@ export default function Channel(props) {
               updateOffset(index, value, true)
             }
             value={offset}
+            min={minOffset}
+            max={maxOffset}
+          />
+        </Grid>
+
+        <Grid item xs={2}>
+          <StyledInput
+            className={classes.input}
+            value={frequency}
+            margin="dense"
+            onChange={(event) =>
+              updateFrequency(index, parseInt(event.target.value), true)
+            }
+            // onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: minFrequency,
+              max: maxFrequency,
+              type: "number",
+            }}
+          />
+          <StyledInput
+            className={classes.input}
+            value={offset}
+            margin="dense"
+            onChange={(event) =>
+              updateOffset(index, parseInt(event.target.value), true)
+            }
+            // onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: minOffset,
+              max: maxOffset,
+              type: "number",
+            }}
           />
         </Grid>
       </Grid>

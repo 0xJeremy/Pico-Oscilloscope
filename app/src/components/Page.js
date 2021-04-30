@@ -8,6 +8,7 @@ import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
 import { colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
+import { defaultFrequency, defaultOffset } from "./Common";
 import { socket } from "./Socket";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const colors = [colorRed, colorBlue, colorGreen, colorYellow];
-
-const gen = () => Math.floor(Math.random() * 101);
 
 export default function Page() {
   const classes = useStyles();
@@ -43,16 +42,16 @@ export default function Page() {
     3: false,
   });
   const [frequency, setFrequency] = React.useState({
-    0: gen(),
-    1: gen(),
-    2: gen(),
-    3: gen(),
+    0: defaultFrequency,
+    1: defaultFrequency,
+    2: defaultFrequency,
+    3: defaultFrequency,
   });
   const [offset, setOffset] = React.useState({
-    0: gen(),
-    1: gen(),
-    2: gen(),
-    3: gen(),
+    0: defaultOffset,
+    1: defaultOffset,
+    2: defaultOffset,
+    3: defaultOffset,
   });
 
   const updateEnabled = (pin, value) => {

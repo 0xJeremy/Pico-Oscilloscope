@@ -5,11 +5,20 @@ import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
+import Input from "@material-ui/core/Input";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { paddingSize, colorOrange, paperColor } from "./PageStyles";
+import {
+  minFrequency,
+  maxFrequency,
+  minOffset,
+  maxOffset,
+  defaultFrequency,
+  defaultOffset,
+} from "./Common";
 
 const StyledSwitch = withStyles({
   switchBase: {
@@ -30,8 +39,7 @@ const FrequencySlider = withStyles({
     color: colorOrange,
     height: 8,
     marginTop: "5px",
-    marginLeft: "8px",
-    width: "13vw",
+    width: "12vw",
   },
   thumb: {
     height: 24,
@@ -58,6 +66,21 @@ const FrequencySlider = withStyles({
   },
 })(Slider);
 
+const StyledInput = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "white",
+      borderBottomColor: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "white",
+    },
+    "& .MuiInput-underline": {
+      color: "white",
+    },
+  },
+})(Input);
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -81,8 +104,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     height: "4vh",
+    paddingTop: "2px",
   },
-  input: {},
   grid: {
     marginTop: "8px",
     marginBottom: "8px",
@@ -95,6 +118,10 @@ const useStyles = makeStyles((theme) => ({
     //   backgroundColor: '#fff',
     //   color: '#3c52b2',
     // },
+  },
+  input: {
+    marginTop: "10px",
+    color: colorOrange,
   },
 }));
 
@@ -109,8 +136,8 @@ export default function ConfigMenu(props) {
   } = props;
   const [toggle, setToggle] = React.useState(false);
   const [inverted, setInverted] = React.useState(false);
-  const [frequency, setFrequency] = React.useState(0);
-  const [offset, setOffset] = React.useState(0);
+  const [frequency, setFrequency] = React.useState(defaultFrequency);
+  const [offset, setOffset] = React.useState(defaultOffset);
   const [paused, setPaused] = React.useState(false);
 
   const handleToggle = (event) => {
@@ -163,29 +190,60 @@ export default function ConfigMenu(props) {
       </Grid>
 
       <Grid container className={classes.grid}>
-        <Grid item xs={5}>
-          <Typography className={classes.gridText}>
-            All Channel Frequencies
-          </Typography>
-          <Typography className={classes.gridText}>
-            All Channel Offsets
-          </Typography>
+        <Grid item xs={3}>
+          <Typography className={classes.gridText}>All Frequencies</Typography>
+          <Typography className={classes.gridText}>All Offsets</Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <FrequencySlider
             key={`slider-config`}
-            className={classes.input}
             valueLabelDisplay="auto"
             onChange={handleFrequency}
             value={frequency}
+            min={minFrequency}
+            max={maxFrequency}
           />
           <FrequencySlider
             key={`slider-config-1`}
-            className={classes.input}
             valueLabelDisplay="auto"
             onChange={handleOffset}
             value={offset}
+            min={minOffset}
+            max={maxOffset}
+          />
+        </Grid>
+
+        <Grid item xs={2}>
+          <StyledInput
+            className={classes.input}
+            value={frequency}
+            margin="dense"
+            onChange={(event) =>
+              handleFrequency(event, parseInt(event.target.value))
+            }
+            // onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: minFrequency,
+              max: maxFrequency,
+              type: "number",
+            }}
+          />
+          <StyledInput
+            className={classes.input}
+            value={offset}
+            margin="dense"
+            onChange={(event) =>
+              handleOffset(event, parseInt(event.target.value))
+            }
+            // onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: minOffset,
+              max: maxOffset,
+              type: "number",
+            }}
           />
         </Grid>
       </Grid>
