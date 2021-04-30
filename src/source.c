@@ -72,7 +72,7 @@ void get_config(){
     }
 }
 
-void set_config(){
+static inline void set_config(){
     sys_config.freq = config;
 
     if (sys_config.freq < 1)
@@ -83,6 +83,6 @@ void set_config(){
     sys_config.period = convert(sys_config.freq);
 }
 
-int config_inc(){
+static inline int config_inc(){
     return getchar_timeout_us(0);
 }
