@@ -8,7 +8,7 @@ import Slider from "@material-ui/core/Slider";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import PauseIcon from "@material-ui/icons/Pause";
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { paddingSize, colorOrange, paperColor } from "./PageStyles";
 
 const StyledSwitch = withStyles({
@@ -91,12 +91,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2vh",
     // color: colorOrange,
     backgroundColor: colorOrange,
+    // '&:hover': {
+    //   backgroundColor: '#fff',
+    //   color: '#3c52b2',
+    // },
   },
 }));
 
 export default function ConfigMenu(props) {
   const classes = useStyles();
-  const {updateAllEnabled, updateAllInverted, updateAllFrequencies, updateAllOffsets, sendStreamUpdate} = props;
+  const {
+    updateAllEnabled,
+    updateAllInverted,
+    updateAllFrequencies,
+    updateAllOffsets,
+    sendStreamUpdate,
+  } = props;
   const [toggle, setToggle] = React.useState(false);
   const [inverted, setInverted] = React.useState(false);
   const [frequency, setFrequency] = React.useState(0);
@@ -106,22 +116,22 @@ export default function ConfigMenu(props) {
   const handleToggle = (event) => {
     setToggle(event.target.checked);
     updateAllEnabled(event.target.checked);
-  }
+  };
 
   const handleInvert = (event) => {
     setInverted(event.target.checked);
     updateAllInverted(event.target.checked);
-  }
+  };
 
   const handleFrequency = (event, value) => {
     setFrequency(value);
     updateAllFrequencies(value);
-  }
+  };
 
   const handleOffset = (event, value) => {
     setOffset(value);
     updateAllOffsets(value);
-  }
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -145,7 +155,9 @@ export default function ConfigMenu(props) {
         </Grid>
         <Grid item xs={2}>
           <FormControlLabel
-            control={<StyledSwitch onChange={handleInvert} checked={inverted} />}
+            control={
+              <StyledSwitch onChange={handleInvert} checked={inverted} />
+            }
           />
         </Grid>
       </Grid>
@@ -169,7 +181,7 @@ export default function ConfigMenu(props) {
             value={frequency}
           />
           <FrequencySlider
-            key={`slider-config`}
+            key={`slider-config-1`}
             className={classes.input}
             valueLabelDisplay="auto"
             onChange={handleOffset}
@@ -178,7 +190,7 @@ export default function ConfigMenu(props) {
         </Grid>
       </Grid>
 
-      {!paused &&
+      {!paused && (
         <Button
           className={classes.button}
           variant="contained"
@@ -192,9 +204,9 @@ export default function ConfigMenu(props) {
         >
           Pause Collection
         </Button>
-      }
+      )}
 
-      {paused &&
+      {paused && (
         <Button
           className={classes.button}
           variant="contained"
@@ -208,9 +220,7 @@ export default function ConfigMenu(props) {
         >
           Resume Collection
         </Button>
-      }
-
-      
+      )}
     </Paper>
   );
 }

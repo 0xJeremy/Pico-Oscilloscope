@@ -39,12 +39,16 @@ const processData = (data) => {
 		}
 
 		if (inverted[i] === true) {
-			data[i] *= -1;
+			data[i] = data[i].map((value) => value*-1);
 		}
 
 		// data[i] += offset[i];
 	}
 	return data;
+}
+
+const shouldSendData = () => {
+	return !paused && enabled.some((v) => v === true);
 }
 
 
@@ -78,7 +82,7 @@ io.on("connection", socket => {
 	})
 
 	setInterval(() => {
-		if(!paused) {
+		if(shouldSendData()) {
 			io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
 			console.log("Emitting data!");
 		}

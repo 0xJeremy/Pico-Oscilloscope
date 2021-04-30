@@ -62,8 +62,8 @@ export default function Page() {
   };
 
   const updateAllEnabled = (value) => {
-    setEnabled({0: value, 1: value, 2: value, 3: value});
-    socket.emit("updateEnabled", {0: value, 1: value, 2: value, 3: value});
+    setEnabled({ 0: value, 1: value, 2: value, 3: value });
+    socket.emit("updateEnabled", { 0: value, 1: value, 2: value, 3: value });
   };
 
   const updateInverted = (pin, value) => {
@@ -72,8 +72,8 @@ export default function Page() {
   };
 
   const updateAllInverted = (value) => {
-    setInverted({0: value, 1: value, 2: value, 3: value});
-    socket.emit("updateInverted", {0: value, 1: value, 2: value, 3: value});
+    setInverted({ 0: value, 1: value, 2: value, 3: value });
+    socket.emit("updateInverted", { 0: value, 1: value, 2: value, 3: value });
   };
 
   const updateFrequency = (pin, value, sendUpdate) => {
@@ -84,9 +84,9 @@ export default function Page() {
   };
 
   const updateAllFrequencies = (value) => {
-    setFrequency({0: value, 1: value, 2: value, 3: value});
-    socket.emit("updateFrequency", {0: value, 1: value, 2: value, 3: value});
-  }
+    setFrequency({ 0: value, 1: value, 2: value, 3: value });
+    socket.emit("updateFrequency", { 0: value, 1: value, 2: value, 3: value });
+  };
 
   const updateOffset = (pin, value, sendUpdate) => {
     setOffset({ ...offset, [pin]: value });
@@ -96,13 +96,13 @@ export default function Page() {
   };
 
   const updateAllOffsets = (value) => {
-    setOffset({0: value, 1: value, 2: value, 3: value});
-    socket.emit("updateoffset", {0: value, 1: value, 2: value, 3: value});
-  }
+    setOffset({ 0: value, 1: value, 2: value, 3: value });
+    socket.emit("updateoffset", { 0: value, 1: value, 2: value, 3: value });
+  };
 
   const sendStreamUpdate = (value) => {
-    socket.emit('streamUpdate', value);
-  }
+    socket.emit("streamUpdate", value);
+  };
 
   React.useEffect(() => {
     socket.on("data", (newData) => {
@@ -157,7 +157,13 @@ export default function Page() {
               />
             );
           })}
-          <ConfigMenu updateAllEnabled={updateAllEnabled} updateAllInverted={updateAllInverted} updateAllFrequencies={updateAllFrequencies} updateAllOffsets={updateAllOffsets} sendStreamUpdate={sendStreamUpdate}/>
+          <ConfigMenu
+            updateAllEnabled={updateAllEnabled}
+            updateAllInverted={updateAllInverted}
+            updateAllFrequencies={updateAllFrequencies}
+            updateAllOffsets={updateAllOffsets}
+            sendStreamUpdate={sendStreamUpdate}
+          />
         </Grid>
       </Grid>
 
