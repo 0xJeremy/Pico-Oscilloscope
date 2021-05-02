@@ -38,12 +38,12 @@ const processData = (data) => {
 			data[i] = [];
 		}
 
-		if (inverted[i] === true) {
-			data[i] = data[i].map((value) => value*-1);
-		}
-
 		if(offset[i] !== 0) {
 			data[i] = data[i].map((value) => parseInt(value + offset[i]));
+		}
+
+		if (inverted[i] === true) {
+			data[i] = data[i].map((value) => value * -1);
 		}
 	}
 	return data;
@@ -85,10 +85,11 @@ io.on("connection", socket => {
 
 	setInterval(() => {
 		if(shouldSendData()) {
-			io.emit('data', processData([[gen()], [gen()], [gen()], [gen()]]));
+			const sendData = processData([[gen()], [gen()], [gen()], [gen()]]);
+			io.emit('data', sendData);
 			console.log("Emitting data!");
 		}
-	}, 250);
+	}, 1000);
 });
 
 // Add event listeners to serial port

@@ -43,6 +43,8 @@ function ToolBar(props) {
           classes={{ outlined: classes.outline }}
           variant="outlined"
           color="primary"
+          href="https://github.com/0xJeremy/p6"
+          target="_blank"
         >
           About
         </Button>

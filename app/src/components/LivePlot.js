@@ -90,7 +90,7 @@ export default function LivePlot(props) {
               zerolinewidth: 3,
               gridcolor: plotGridColor,
               range: [-3, 3],
-              dtick: 0.5,
+              dtick: 0.25,
               showticklabels: false,
             },
             yaxis: {
