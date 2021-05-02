@@ -31,6 +31,6 @@ struct config_t sys_config;
 bool reading_config;
 
 // Get and set configs
-void get_config();
-void set_config();
-int config_inc();
+static inline void get_config();
+static inline void set_config();
+static inline int config_inc();
