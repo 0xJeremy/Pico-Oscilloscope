@@ -6,6 +6,10 @@ const minOffset = -3000;
 const maxOffset = 3000;
 const defaultOffset = 0;
 
+const minSamples = 10;
+const maxSamples = 1024;
+const defaultSamples = 120;
+
 export {
   minFrequency,
   maxFrequency,
@@ -13,4 +17,7 @@ export {
   maxOffset,
   defaultFrequency,
   defaultOffset,
+  minSamples,
+  maxSamples,
+  defaultSamples,
 };

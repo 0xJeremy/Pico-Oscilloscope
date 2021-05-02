@@ -85,11 +85,11 @@ io.on("connection", socket => {
 
 	setInterval(() => {
 		if(shouldSendData()) {
-			const sendData = processData([[gen()], [gen()], [gen()], [gen()]]);
+			const sendData = processData([[gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()]]);
 			io.emit('data', sendData);
 			console.log("Emitting data!");
 		}
-	}, 1000);
+	}, 100);
 });
 
 // Add event listeners to serial port

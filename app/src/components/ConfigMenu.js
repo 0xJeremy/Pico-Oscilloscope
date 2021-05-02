@@ -18,6 +18,8 @@ import {
   maxOffset,
   defaultFrequency,
   defaultOffset,
+  minSamples,
+  maxSamples,
 } from "./Common";
 
 const StyledSwitch = withStyles({
@@ -97,7 +99,6 @@ const useStyles = makeStyles((theme) => ({
   },
   channelTitle: {
     fontSize: "24px",
-    paddingBottom: "8px",
   },
   gridText: {
     display: "flex",
@@ -108,7 +109,6 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     marginTop: "8px",
-    marginBottom: "8px",
   },
   button: {
     marginTop: "2vh",
@@ -133,6 +133,8 @@ export default function ConfigMenu(props) {
     updateAllFrequencies,
     updateAllOffsets,
     sendStreamUpdate,
+    maxDataSet,
+    setMaxDataSet,
   } = props;
   const [toggle, setToggle] = React.useState(false);
   const [inverted, setInverted] = React.useState(false);
@@ -193,6 +195,7 @@ export default function ConfigMenu(props) {
         <Grid item xs={3}>
           <Typography className={classes.gridText}>All Frequencies</Typography>
           <Typography className={classes.gridText}>All Offsets</Typography>
+          <Typography className={classes.gridText}>Max Samples</Typography>
         </Grid>
 
         <Grid item xs={7}>
@@ -211,6 +214,14 @@ export default function ConfigMenu(props) {
             value={offset}
             min={minOffset}
             max={maxOffset}
+          />
+          <FrequencySlider
+            key={`slider-config-1`}
+            valueLabelDisplay="auto"
+            onChange={(event, value) => setMaxDataSet(value)}
+            value={maxDataSet}
+            min={minSamples}
+            max={maxSamples}
           />
         </Grid>
 
@@ -242,6 +253,20 @@ export default function ConfigMenu(props) {
               step: 10,
               min: minOffset,
               max: maxOffset,
+              type: "number",
+            }}
+          />
+
+          <StyledInput
+            className={classes.input}
+            value={maxDataSet}
+            margin="dense"
+            onChange={(event) => setMaxDataSet(parseInt(event.target.value))}
+            // onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: minSamples,
+              max: maxSamples,
               type: "number",
             }}
           />

@@ -8,7 +8,7 @@ import Channel from "./Channel";
 import InfoBox from "./InfoBox";
 import ConfigMenu from "./ConfigMenu";
 import { colorRed, colorBlue, colorGreen, colorYellow } from "./PageStyles";
-import { defaultFrequency, defaultOffset } from "./Common";
+import { defaultFrequency, defaultOffset, defaultSamples } from "./Common";
 import { socket } from "./Socket";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const colors = [colorRed, colorBlue, colorGreen, colorYellow];
 
 export default function Page() {
   const classes = useStyles();
-  const maxDataSet = 60;
+  const [maxDataSet, setMaxDataSet] = React.useState(defaultSamples);
   // Here be dragons. I'm not proud...
   const [data, setData] = React.useState({
     0: [],
@@ -104,6 +104,7 @@ export default function Page() {
   };
 
   React.useEffect(() => {
+    socket.off("data");
     socket.on("data", (newData) => {
       console.log("data:", newData);
       setData((data) => {
@@ -125,7 +126,7 @@ export default function Page() {
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [maxDataSet]);
 
   return (
     <div>
@@ -162,6 +163,8 @@ export default function Page() {
             updateAllFrequencies={updateAllFrequencies}
             updateAllOffsets={updateAllOffsets}
             sendStreamUpdate={sendStreamUpdate}
+            maxDataSet={maxDataSet}
+            setMaxDataSet={setMaxDataSet}
           />
         </Grid>
       </Grid>
