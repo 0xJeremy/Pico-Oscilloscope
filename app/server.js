@@ -42,7 +42,9 @@ const processData = (data) => {
 			data[i] = data[i].map((value) => value*-1);
 		}
 
-		// data[i] += offset[i];
+		if(offset[i] !== 0) {
+			data[i] = data[i].map((value) => parseInt(value + offset[i]));
+		}
 	}
 	return data;
 }

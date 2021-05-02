@@ -101,8 +101,9 @@ export default function LivePlot(props) {
               zerolinecolor: plotGridColor,
               zerolinewidth: 3,
               gridcolor: plotGridColor,
-              range: [-101, 101],
-              dtick: 20,
+              // autorange: true,
+              range: [-3350, 3350],
+              dtick: 300,
             },
           }}
         />
