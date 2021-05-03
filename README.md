@@ -1,8 +1,6 @@
 <div align="center">
-  <img src="docs/Logo.png">
+  <img src="docs/repo_logo.png">
 </div>
-
-# MPP P6
 
 ### Code Structure
 

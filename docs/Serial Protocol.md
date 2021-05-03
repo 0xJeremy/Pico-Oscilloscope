@@ -1,3 +1,0 @@
-# Serial Protocol
-
-TODO: This :)
