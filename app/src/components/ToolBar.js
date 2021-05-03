@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     background: paperColor,
     color: colorOrange,
   },
+  logo: {
+    height: '2.5em',
+    paddingRight: '24px',
+    verticalAlign: 'center',
+  },
   name: {
     marginLeft: "-10px",
     fontSize: "2.2em",
@@ -33,6 +38,7 @@ function ToolBar(props) {
 
   return (
     <Toolbar className={classes.root}>
+      <img className={classes.logo} src="static/logo.png" />
       <Typography className={classes.name}>
         Raspberry Pi[co] [OSS]illoscope
       </Typography>

@@ -169,7 +169,7 @@ export default function Page() {
         </Grid>
       </Grid>
 
-      {/*<InfoBox />*/}
+      <InfoBox />
     </div>
   );
 }
