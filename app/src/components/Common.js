@@ -8,7 +8,7 @@ const defaultOffset = 0;
 
 const minSamples = 10;
 const maxSamples = 1024;
-const defaultSamples = 120;
+const defaultSamples = 240;
 
 export {
   minFrequency,

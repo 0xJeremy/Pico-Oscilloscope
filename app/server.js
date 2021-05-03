@@ -1,4 +1,7 @@
 // Setup express server
+
+const ENABLE_HARDAWRE = true;
+
 const express = require("express");
 const path = require("path");
 const port = process.env.PORT || 8080;
@@ -14,11 +17,48 @@ const io = require("socket.io")(httpServer, {
 });
 
 // Setup Node Serialport
-const SerialPort = require('serialport');
-const ByteLength = require('@serialport/parser-byte-length');
-// const port = new SerialPort('/dev/tty-usbserial1');
+if(ENABLE_HARDAWRE) {
+	const maxValue = 2**16;
+	const scaleValue = 3300;
+	const SerialPort = require('serialport');
+	const ByteLength = require('@serialport/parser-byte-length');
+	const port = new SerialPort('/dev/ttyACM0');
 
-// const parser = port.pipe(new ByteLength({length: 8}));
+	const parser = port.pipe(new ByteLength({length: 8}));
+
+	// Here be dragons. I'm not proud...
+	let adc1 = [];
+	let adc2 = [];
+	let adc3 = [];
+	let adc4 = [];
+
+	// Add event listeners to serial port
+	parser.on('data', (data) => {
+		adc1.push(data.readUInt16LE(0) / maxValue * scaleValue);
+		adc2.push(data.readUInt16LE(2) / maxValue * scaleValue);
+		adc3.push(data.readUInt16LE(4) / maxValue * scaleValue);
+		adc4.push(data.readUInt16LE(6) / maxValue * scaleValue);
+
+		if (adc1.length >= 10) {
+			// Re-cast data to webpage
+			if(shouldSendData()) {
+				io.emit('data', processData([adc1, adc2, adc3, adc4]));
+			}
+			adc1 = [];
+			adc2 = [];
+			adc3 = [];
+			adc4 = [];
+		}
+	});
+
+	port.write(Buffer.from([0x20, 0x00, 0x00, 0x00]), (err) => {
+	  if (err) {
+	    return console.log('Error on write: ', err.message)
+	  }
+	  console.log('Wrote Sampling Frequency');
+	});
+}
+
 
 const enabled = [false, false, false, false];
 const inverted = [false, false, false, false];
@@ -83,20 +123,16 @@ io.on("connection", socket => {
 		paused = data;
 	})
 
-	setInterval(() => {
-		if(shouldSendData()) {
-			const sendData = processData([[gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()]]);
-			io.emit('data', sendData);
-			console.log("Emitting data!");
-		}
-	}, 100);
+	if(!ENABLE_HARDAWRE) {
+		setInterval(() => {
+			if(shouldSendData()) {
+				const sendData = processData([[gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()]]);
+				io.emit('data', sendData);
+				console.log("Emitting data!");
+			}
+		}, 100);
+	}
 });
-
-// Add event listeners to serial port
-// parser.on('data', (data) => {
-	// Re-cast data to webpage
-	// io.emit('data', data);
-// });
 
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "build")));

@@ -216,7 +216,7 @@ export default function ConfigMenu(props) {
             max={maxOffset}
           />
           <FrequencySlider
-            key={`slider-config-1`}
+            key={`slider-config-2`}
             valueLabelDisplay="auto"
             onChange={(event, value) => setMaxDataSet(value)}
             value={maxDataSet}
