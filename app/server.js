@@ -1,6 +1,6 @@
 // Setup express server
 
-const ENABLE_HARDAWRE = true;
+const ENABLE_HARDWARE = true;
 
 const express = require("express");
 const path = require("path");
@@ -17,14 +17,15 @@ const io = require("socket.io")(httpServer, {
 });
 
 // Setup Node Serialport
-if(ENABLE_HARDAWRE) {
+let serialport = null;
+if(ENABLE_HARDWARE) {
 	const maxValue = 2**16;
 	const scaleValue = 3300;
 	const SerialPort = require('serialport');
 	const ByteLength = require('@serialport/parser-byte-length');
-	const port = new SerialPort('/dev/ttyACM0');
+	serialport = new SerialPort('/dev/ttyACM0');
 
-	const parser = port.pipe(new ByteLength({length: 8}));
+	const parser = serialport.pipe(new ByteLength({length: 8}));
 
 	// Here be dragons. I'm not proud...
 	let adc1 = [];
@@ -51,7 +52,7 @@ if(ENABLE_HARDAWRE) {
 		}
 	});
 
-	port.write(Buffer.from([0x20, 0x00, 0x00, 0x00]), (err) => {
+	serialport.write(Buffer.from([0x20, 0x00, 0x00, 0x00]), (err) => {
 	  if (err) {
 	    return console.log('Error on write: ', err.message)
 	  }
@@ -93,6 +94,16 @@ const shouldSendData = () => {
 	return !paused && enabled.some((v) => v === true);
 }
 
+const toBytesInt32 = (num) => {
+    arr = new Uint8Array([
+         (num & 0x000000ff),
+         (num & 0x0000ff00) >> 8,
+         (num & 0x00ff0000) >> 16,
+         (num & 0xff000000) >> 24
+    ]);
+    return arr;
+}
+
 
 // Add event listeners to socket
 io.on("connection", socket => {
@@ -111,6 +122,14 @@ io.on("connection", socket => {
 	socket.on('updateFrequency', (data) => {
 		updateState(frequency, data);
 		console.log("Frequency:", frequency);
+		if(ENABLE_HARDWARE) {
+			serialport.write(toBytesInt32(data[0]), (err) => {
+				if (err) {
+				  return console.log('Error on write: ', err.message)
+				}
+				console.log('Wrote Sampling Frequency', data[0]);
+			});
+		}
 	});
 
 	socket.on('updateoffset', (data) => {
@@ -123,7 +142,7 @@ io.on("connection", socket => {
 		paused = data;
 	})
 
-	if(!ENABLE_HARDAWRE) {
+	if(!ENABLE_HARDWARE) {
 		setInterval(() => {
 			if(shouldSendData()) {
 				const sendData = processData([[gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()], [gen(), gen(), gen()]]);
