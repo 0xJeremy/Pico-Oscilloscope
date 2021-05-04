@@ -13,8 +13,11 @@ Code in the `app` folder is the Node.js powered web-based interface (running on 
 Code in the `src` folder lives on the Raspberry Pi Pico and streams analog data over the serial port. It also accepts serial configuration commands... see below.
 
 ### Pico Serial Commands
+Serial Communications run at an approximate baudrate of 3Mb/s.
 
-[TODO: This section!]
+Sending Configuration: To configure the pico, you must send a frequency value as an unsigned 32-bit integer in little-endian. Those four bytes must be sent contiguously, any data-loss will require resending of this frequency. (TODO: Accept 4 frequency values for the 4 channels)
+
+Recieving Readings: The pico with send 8 bytes of data over serial at approximately the frequency it is configured. Each set of two bytes represents the reading from a pin as an unsigned 16-bit integer in little endian. The data can be interpreted as an array of values with the first two bytes being reading from channel 1, the next pair is the reading from channel 2, etc.
 
 ### Developing
 
